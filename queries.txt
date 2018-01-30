@@ -1,0 +1,35 @@
+queries
+Directions
+Now that your database is established, here are the queries that we’d like you 
+to run:
+
+First, while running python -i model.py, try using the included functions 
+(all_employees_nav() and all_employees_join()) to get a list of all employees.
+Next, run server.py, navigate to http://localhost:5000, and check out these 
+functions as routes – use the Debug Toolbar on the right to note the difference 
+between running times and query numbers for the two functions. Why are they 
+different? What does that mean?
+    _nav function   176ms, 5 queries. Each iteration is another query.
+    _join function  8ms, 1 query. eager join loads before iteration.
+
+Run python -i model.py again, and grab the employee object with the name 
+‘Cynthia Dueltgen.’
+    base_q = Employee.query.filter_by(name='Cynthia Dueltgen')
+    cyn = base_q.one()
+
+What department is she in? (Show the object for her department.)
+    cyn.dept
+    
+What is the phone number of the department that Cynthia is in?
+    cyn.dept.phone
+    
+Find all employees whose department we don’t know.
+    base2 = Employee.query.filter_by(dept_code = None)
+    base2.all() 
+    
+Get a list of tuples with just the name of everyone whose favorite color is 
+orange.
+    db.session.query(Employee.name).filter_by(fav_color='orange').all()
+    
+Find all employees who work in ‘Administration.’
+    Employee.query.filter_by(dept_code = 'admin').all()
